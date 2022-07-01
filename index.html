@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<nav>
+  <h1>AmgdeBooks</h1>
+  <p>keep tabs of all your favorite books and novels</p>
+</nav>
+<section class="rest-of-page">
+
+<div class="books-container">
+  <div class="book" title="12`3">
+
+    <p class="book-title">Berserk</p>
+    <p class="book-author">Japanese man</p>
+    <p class="book-pages">Total pages : 23</p>
+    <div class="bookCover"></div>
+  
+</div>
+<!-- <button class="show-dialog" onclick="openDialog()"> Dialog</button> -->
+
+</div>
+<div class="info-settings-holder"> 
+
+<div class="info">
+<p>Number of books : <span id="number-of-books"></span></p>
+<p>Number of read books : <span id="number-of-read-books"></span></p>
+<p>Number of read Pages : <span id="number-of-read-pages"></span></p>
+</div>
+<div class="settings">
+  <div class="input-holder">
+    <input type="text" id="update-title-input" class="title" placeholder=" ">
+    <label for="update-title-input">New Title</label>
+  </div>
+  <div class="input-holder">
+    <input type="text" id="update-author-input" class="author" placeholder=" ">
+    <label for="update-author-input">New Author</label>
+  </div>
+  
+  <div class="input-holder biguy"> 
+    <div class="input-holder pages-read-holder" >
+      <input type="number" id="update-pages-input" class="readPages" placeholder=" ">
+      <label for="update-pages-input" >Read Pages</label>
+    </div> 
+    <div class="input-holder pages-read-holder">
+      <input type="number" id="update-readpages-input" class="totalPages" placeholder=" ">
+      <label for="update-readpages-input"> Total Pages</label>
+    </div>
+  </div>
+  <div class="input-holder biguy">  
+    <button class="update-book-btn">Update</button>
+    <div class="input-holder pages-read-holder">
+    <input type="color" id="update-cover-input" class="color" placeholder=" ">
+    </div>
+</div>
+<button class="trashcan"> <img src="./delete_FILL0_wght400_GRAD0_opsz48.svg" alt="Delete Book">
+  <div class="bla3a">
+    <div class="bla3a-grab"></div>
+  </div>
+</button>
+</div>
+
+</div> 
+<!-- dialog form -->
+<dialog class="book-form" >
+  <form id="add-book-form" method="dialog">
+    <div class="input-holder">
+      <input type="text" id="new-book-name" placeholder=" "  title="Please provide the name of the author" autocomplete="false" spellcheck="false"  required>
+      <label for="new-book-name">Title</label>
+      <div class="border-bottom"></div>
+    </div>
+    <div class="input-holder">
+      <input type="text" id="new-book-author"  placeholder=" "  spellcheck="false" required>
+      <label for="new-book-author">Author</label>
+      <div class="border-bottom"></div>
+    </div>
+    <div class="input-holder">
+      <input type="number" id="new-book-pages" placeholder=" "  min="0" max="999999" required>
+      <label for="new-book-pages">Pages</label>
+      <div class="border-bottom"></div>
+    </div>
+
+    <div class="input-holder biguy">  
+      <div class="input-holder pages-read-holder">
+        <input type="number" id="new-book-pages-read" min="0"  placeholder=" ">
+        <label for="new-book-pages-read">Read Pages</label>
+      </div>
+
+      <div class="input-holder cover-color-holder">
+        <input type="color"  id="cover-color"  value="#0e74a0" placeholder=" ">
+        <label for="cover-color">Cover</label>
+      </div>
+    </div>
+
+    <button class="add-book" >Add-book</button>
+    <button type="button" class="close-dialog" onclick="closeDialog()">close</button>
+  </form>
+</dialog>
+
+<dialog class="update-dialog">
+<h2>do you want to update the book with the following information ?</h2>
+</dialog>
+
+<dialog class="delete-dialog">
+    <h1>Are You Sure You Want To <mark>PERMENANTLY</mark> Delete This Book</h1>
+    <div class="delete-cancel-div">
+      <button class="deleteBook">Delete</button>
+      <button class="cancelDeletion">Cancel</button>
+    </div>
+</dialog>
+</section>
+
+<template id="show-dialog-template">
+  <div class="show-dialog-div">
+    <button class="show-dialog" onclick="openDialog()">Dialog</button>
+  </div >
+</template>
+
+<template id="booktemplate">
+  <div class="book">
+    <div class="bookCover"></div>
+   
+  
+  </div>
+</template>
+
+<template id="open-dialog-button-template">
+  <div class="open-dialog-button-div" >
+    <div class="plus-sign" onclick="openDialog()"><img src="./plus-sign-button-svgrepo-com.svg" alt="plus" class="plus-sign-svg"></div>
+    <button class="show-dialog" onclick="openDialog()"> Add a book</button>
+  </div>
+</template>
+
+<script src="./store.js" defer></script>
+<script src="./app.js" defer></script>
+</body>
+</html>

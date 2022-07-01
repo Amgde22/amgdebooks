@@ -1,0 +1,446 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Akshar:wght@500&family=Cairo:wght@700&family=Raleway:ital,wght@1,100;1,200;1,400;1,600&family=Roboto+Mono:wght@200&display=swap');
+
+:root{
+  --bgc :rgb(12, 157, 214);
+  --bgc-light : rgba(255, 255, 255, 0.733);
+}
+
+body {
+  box-sizing: border-box;
+  /* background-color: rgb(248, 169, 244); */
+  background-color:var(--bgc)
+  ;
+}
+*,*::after,*::before{
+  box-sizing: inherit;
+}
+nav {
+  background-color: var(--bgc-light);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 20px 10px; margin-bottom: 20px;
+  border-radius: 15px;
+  gap: 20px;
+}
+h1 ,p{
+  margin: 0;
+}
+nav > p {
+margin: 0 auto;
+font-size: 2em; text-transform: capitalize; text-decoration: underline;border-bottom: 5px solid black;
+color: rgba(0, 0, 0, 0.863);
+}
+.rest-of-page{
+  display: grid;
+  grid-template-columns: 1fr 200px;
+}
+
+.books-container{
+  background-image:var(--bgc);
+  padding:  20px 10px;
+  display: grid;
+  grid-template-columns:  repeat(auto-fill,minmax(200px,1fr));
+  row-gap: 20px;  column-gap: 25px;
+  grid-auto-rows: minmax(200px , 250);
+}
+
+.book , .open-dialog-button-div{
+
+border: 2px solid black;
+background-color: rgb(27, 29, 56);
+
+
+width: 200px;
+
+min-height: 200px;
+height: 40vh;
+max-height: 250px;
+  display: flex;flex-direction: column;
+  margin: auto;
+position: relative;
+
+box-sizing: border-box;
+}
+.book {
+box-shadow: 7px 5px white 
+          , 7px 5px 0 .5px black;
+}
+.book > .book-title {
+position: absolute; padding: 5px 10px; box-sizing: initial; background-color: rgba(255, 255, 255, 0.733);
+top: 20%; width: fit-content; max-width: 70%; height: fit-content; 
+left: 0;right: 0;margin: 0 auto; word-break:break-all ;
+
+font-family: "Raleway";font-weight: 600;font-style: italic;
+text-transform: capitalize;
+}
+.book > .book-pages {
+  position: absolute; background-color: rgb(248, 192, 7);
+  bottom: 0;right: 10px; font-size: 1.3em;
+
+
+
+}
+.book > .book-pages > .book-read-pages {
+display: inline-block;
+padding: 0 10px;color: azure;height: 100%;
+clip-path: polygon(10px 0%, 100% 0%, 100% 100%, 0% 100%);
+
+}
+.book > .book-pages > .book-total-pages {
+  display: inline-block;
+  background-color: rgb(61, 218, 13);color: white;
+  padding: 0 5px; margin: 0;
+  border: 1px solid black;
+  position: relative;
+}
+.book > .book-pages > .book-total-pages:only-of-type::before {
+content: "Finished";
+display: block; position: absolute;
+background-color: rgb(27, 117, 0);
+right: 101%; top: 0; padding: 0 5px;
+border: 1px solid black;
+
+}
+
+
+.book > .book-author {
+  position: absolute;bottom: 35px; right: 5px; font-size: 1.2em; margin-left: 5px;
+background-color: #fff; padding: 0 5px;border-radius: 3px; 
+transition: all 200ms ease-out; font-family:'Times New Roman', Times, serif;
+opacity: 0;
+}
+.book:focus > .book-author , .book:hover > .book-author  {
+  opacity: 1;
+}
+
+.bookCover{
+  position: absolute;
+  right: 100%;top: 0;bottom: 0;
+border-radius: 10px 0 0 10px;
+  width: 15px;background-color: black;
+
+}
+dialog{
+  position: absolute;top: 0;left: 0;right: 0;bottom: 30%;
+  background-color: rgb(51, 51, 51);
+  margin: auto;
+  padding: 0 20px 20px 20px;
+  font-family:"Akshar" ,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+  border-radius: 30px 30px 20px 20px;
+
+
+}
+dialog::backdrop {
+  background: rgba(54, 53, 53, 0.55);
+}
+
+
+/* form stuff */
+.input-holder{
+  position: relative;
+  height: 35px;
+  margin: 40px 0px ;
+  font-size: 26px;
+}
+
+.input-holder > label {
+  position: absolute;cursor: text;
+  left: 5px;
+  bottom: 0px;margin: auto auto;
+  color: rgb(158, 157, 157);
+}
+.input-holder > input {
+  padding-left: 4px;
+  box-sizing: initial;
+  appearance: none;
+  outline: none;
+  height: 100%;
+  width: 20ch;
+  font-size: 26px;
+  border: none;
+}
+.border-bottom{
+  height: 5px; 
+  transition: all 250ms ease-in;
+  transform: scaleX(0);
+  transform-origin: center;
+}
+.input-holder > input:focus ~ .border-bottom{
+  transform: scaleX(1);
+  background-color: rgb(37, 147, 250);
+}
+/* .input-holder > input:focus , .input-holder > input:hover  {
+  background-color: rgb(43, 43, 43);
+  color: white;
+} */
+
+
+.input-holder > input:focus + label ,
+.input-holder > input:not(:placeholder-shown) + label {
+  opacity: 0;
+}
+
+.input-holder > input:valid ~ .border-bottom{
+transform: scaleX(1);
+background-color: rgb(72, 223, 72);
+
+}
+/* invalid inputs */
+.input-holder > input:invalid:not(:focus):not(:placeholder-shown){
+  background-color: rgb(236, 165, 177);
+}
+.input-holder > input:invalid:not(:focus):not(:placeholder-shown) ~ .border-bottom{
+  transform: scaleX(1);
+background-color: rgb(253, 86, 86);
+}
+.biguy{
+display: flex;
+}
+.biguy > div.pages-read-holder ,.biguy >  div.cover-color-holder {
+width: 40%;
+}
+.biguy > div.pages-read-holder >input ,.biguy >  div.cover-color-holder > input{
+width: 100%;
+}
+
+.biguy > div.pages-read-holder >label {
+font-size: 20px;
+top: 7px;right: 5px;
+}
+
+div.pages-read-holder {margin: 0;}
+div.cover-color-holder {
+ margin: 0; margin-left: auto; 
+}
+
+
+
+form#add-book-form  button {
+  padding: 10px 20px;font-size: 26px;
+  border-radius: 20px 5px;
+  background-color: rgb(72, 223, 72);
+  color: #ffff;
+  opacity: .7;
+  cursor: pointer;
+  
+
+}
+form#add-book-form > button:hover ,form#add-book-form > button:focus{
+  opacity: 1 ;
+}
+form#add-book-form > button.close-dialog {
+  margin-left: 30px;
+  border-radius: 5px 20px;
+  background-color: rgb(223, 90, 72)
+}
+
+.open-dialog-button-div {
+  border-radius: 20px;
+}
+.show-dialog {
+  position: absolute;
+  bottom: 15%; width: 100%;font-size: 1.4em;background-color: transparent; border: none;
+  color: white; text-shadow: 1px 0.5px 1px grey; transition: all 320ms ease-in-out;
+  opacity: 0;
+  transition-delay: 100ms;
+  
+}
+.plus-sign {
+  height: 70px;width: 70px; background-color: white;
+  position: absolute; margin: 0 auto; left: 0; right: 0;
+  bottom: 15%; border-radius: 50%; box-shadow: 0 0 3px white;
+  transition: all 500ms ease-out;
+  cursor: pointer;
+
+}
+.plus-sign-svg{
+  width: 100%;
+}
+.open-dialog-button-div:hover > .plus-sign {
+  transform: translateY(-50%) rotate(180deg);
+}
+.open-dialog-button-div:hover > .show-dialog  {opacity: 1; cursor: pointer;}
+
+.info-settings-holder{ 
+  padding: 10px; margin-bottom: 10px;
+  background-color: var(--bgc-light);
+  padding-left: 10px; 
+  border-radius: 20px;
+  font-family:"Akshar" ,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+ 
+
+}
+      .settings { position: relative;
+
+        margin-top: 20px;
+        border: 5px solid black;
+        border-radius: 10px;
+        padding: 20px  0  0 10px   ;
+        display: none;
+      }
+
+      .settings > .input-holder , .settings > .biguy {
+        margin: 0 0 10px 0;
+      }
+      
+      .settings > .input-holder > input {
+        
+        box-sizing: border-box;
+        width: 95%; 
+        font-family:"Akshar" ,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+
+        font-size: 16px;
+
+
+      }
+      .settings > .biguy  {
+        display: flex;
+        gap: 15px;
+      }
+      .settings > .biguy > button {
+        width: 40%;
+        border: 3px solid black;
+        border-radius: 20px 5px;
+        background-color: rgb(72, 223, 72);
+        color: white;
+        cursor: pointer;
+      }
+      .settings > .biguy > button:focus
+ ,    .settings > .biguy > button:hover {
+        background-color: rgb(43, 128, 43)
+      }
+      .settings > .biguy > .input-holder > label {
+        font-size: 11px !important ;
+        transform: scale(1.2) translate(2px , 5px);
+      }
+      .settings > .biguy >  input[type="color"]{
+        width: 50px;margin: 0;
+        display: block;
+      }
+      .trashcan{
+        position: absolute; bottom: 10px; right: 100%;
+        display: grid; height: 54px;
+        background-color: red;
+        place-items: center;
+        cursor: pointer;
+
+        transition: transform 230ms;
+        transform: perspective(200px) rotateY(90deg);
+        transform-origin: right;
+
+        outline: none;
+      }.trashcan:focus , .trashcan:focus > .bla3a {
+        outline: 3px solid red;
+        box-shadow: 5px 5px 5px 5px rgb(107, 12, 12);
+        
+      }
+
+      
+      .settings:focus-within > .trashcan ,
+      .settings:hover > .trashcan {
+        transform: perspective(200px) rotateY(0deg);
+
+
+      }
+
+      
+        .bla3a{
+        position: absolute;
+        height: 10px; width: 120%;
+        bottom: 100%; 
+          background-color:black ;
+        display: grid; place-items: center;
+
+          transition: transform 150ms ;
+          pointer-events: none;
+
+        }
+            .bla3a-grab{
+              position: absolute; bottom: 50%;
+              height: 12px; width: 25px;
+              border-radius: 50%; border:4px solid black;
+            }
+      .trashcan:focus > .bla3a  ,
+        .trashcan:hover > .bla3a   {
+          transform: translate( 5px , -20px) rotate(12deg);
+        }
+
+
+
+
+
+
+
+      @media (max-width:500px){
+        .rest-of-page{display: flex;flex-direction: column-reverse;}
+        nav{
+          flex-direction: column;
+        }
+        .book{
+          max-width: 200px;
+        }
+        .info-settings-holder{ display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
+        .settings {
+          margin-top: 0;
+        }
+        .settings > .biguy > .input-holder > label {
+          font-size: 13px !important ;
+          transform: scale(1.23) translate(2px , 5px);
+        }
+        
+              } 
+/* Delete book */
+
+
+.delete-dialog h1{
+
+  color: white;
+
+  font-size: 2em;
+margin: 1em;
+}
+.delete-dialog h1 mark{
+  background: linear-gradient(to bottom right , rgb(255, 98, 98) 70%,white);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  position: relative;
+  
+}
+.delete-dialog h1 mark::before{
+  content: "";
+  position: absolute;
+  left: 0;right: 0;top: 100%;height: 3px;
+  background: linear-gradient(45deg , rgb(255, 98, 98) 50%,white);
+}
+
+.delete-cancel-div{
+  display: flex;
+  justify-content: space-around;
+  margin: 1em; 
+  margin-top: 3em;
+}
+.delete-cancel-div button{
+  font-size: 1.4em;
+  padding: .5em 1.5em;
+  font-family: inherit;
+  cursor: pointer;
+}
+.deleteBook{
+background-color: rgb(255, 98, 98);
+color: white;
+}
+.cancelDeletion{
+background-color: #fff;
+  background-image: linear-gradient(to right , rgb(255, 98, 98) ,white 90%);
+  background-size: 40%;background-repeat: no-repeat;
+
+
+color: black;
+}
+
+
