@@ -3,8 +3,14 @@ const store = window.localStorage
 
 if(!store.allBooks){
   console.log("no books bfff");
-  store.allBooks = "[]"
-  store.booksIds = "1"
+  store.allBooks = JSON.stringify([
+    {author: "Kentaro Miura",
+  color: "#010033",
+  id: 1,
+  readPages: null,
+  title: "Berserk",
+  totalPages: 364}])
+  store.booksIds = "2"
 }
  
 

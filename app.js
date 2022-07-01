@@ -22,7 +22,13 @@ let selectedBook ;
 // update book
 const updateBookBtn = document.querySelector(".update-book-btn")
 
-
+ // info
+ const numberOfBooksDisplay = document.querySelector("#number-of-books")
+ const numberOfReadPages = document.querySelector("#number-of-total-pages")
+ const numberOfTotalPages = document.querySelector("#number-of-read-pages")
+ const numberOfFinishedBooks = document.querySelector("#number-of-Finished-books")
+ const numberOfPendingBooks = document.querySelector("#number-of-pending-books")
+ const numberOfUntouchedBooks = document.querySelector("#number-of-untouched-books")
 
 
 // openDialogBtn.addEventListener("click" , openDialog)
@@ -34,11 +40,18 @@ addBookBtn.addEventListener("click" , addBook)
 
 function addBook(storeCalled) {
 
-
-
 //check validity
 if(!newbookTitle.checkValidity() || !newbookAuthor.checkValidity() || !newbookPages.checkValidity()){return}
 
+if(parseInt(readPagesField.value) > parseInt(newbookPages.value)  ){
+    
+  readPagesField.setCustomValidity("The pages you already read must be LESS then the total amount of pages")
+  return
+}
+if(parseInt(readPagesField.value) < 0){ 
+  readPagesField.setCustomValidity("read pages must be more then 0")
+  return
+}
 
 
 
@@ -64,31 +77,39 @@ author.textContent = `by ${newbookAuthor.value}`
  let pages = document.createElement("p")
  pages.classList.add("book-pages")
 
+ let totalpages = document.createElement("p")
+ totalpages.classList.add("book-total-pages")
+ totalpages.textContent = parseInt(newbookPages.value)
+ pages.appendChild(totalpages)
+
+
+
  newbook.readpages = 0
 
-if(readPagesField.value){
 
-  if(parseInt(readPagesField.value) > parseInt(newbookPages.value)  ){
-    
-    readPagesField.setCustomValidity("The pages you already read must be LESS then the total amount of pages")
-    return
+  const parsedReadPages = parseInt(readPagesField.value)
+  newbook.readpages = parsedReadPages
+
+  if(parsedReadPages === 0 ||
+     readPagesField.value === ""){
+        totalpages.classList.add("unread")
+
+     }
+
+  else if(parsedReadPages === parseInt(newbookPages.value) ){
+    totalpages.classList.add("read")
+
   }
-  if(parseInt(readPagesField.value) < 0){ 
-    readPagesField.setCustomValidity("read pages must be more then 0")
-    return
+  else{
+    let readpages = document.createElement("p")
+    readpages.classList.add("book-read-pages")
+    readpages.innerText =  parseInt(readPagesField.value)
+    pages.insertBefore(readpages , totalpages)
   }
 
-  newbook.readpages = parseInt(readPagesField.value)
-let readpages = document.createElement("p")
-readpages.classList.add("book-read-pages")
-readpages.innerText =  parseInt(readPagesField.value)
-pages.appendChild(readpages)
-}
 
-let totalpages = document.createElement("p")
-totalpages.classList.add("book-total-pages")
-totalpages.textContent = parseInt(newbookPages.value)
-pages.appendChild(totalpages)
+
+
 
 
 newbook.appendChild(title)
@@ -135,12 +156,6 @@ form.reset()
 infoupdate()
 }
 
-const numberOfBooksDisplay = document.querySelector("#number-of-books")
-function infoupdate() {
-  let numberOfBooks = document.querySelectorAll(".book")
-  numberOfBooksDisplay.textContent = numberOfBooks.length.toString()
-  
-}
 
 function closeDialog() {
   dialogPopup.close()
@@ -209,13 +224,36 @@ if(newAuthor.value ){
 selectedBook.querySelector(".book-author").innerText = newAuthor.value
 bookObj.author = newAuthor.value
 }
-if(newReadPages.value && selectedBook.querySelector(".book-read-pages")){
-selectedBook.querySelector(".book-read-pages").innerText = newReadPages.value
-bookObj.readPages = newReadPages.value
+
+// check if read pages is being updated
+const newReadPagesParsed = parseInt(newReadPages.value)
+if( newReadPages.value ){
+    if(selectedBook.querySelector(".book-read-pages") &&
+    newReadPagesParsed <= selectedBook.totalpages ){
+          selectedBook.querySelector(".book-read-pages").innerText = newReadPagesParsed
+          bookObj.readPages = newReadPagesParsed 
+        }
+
+    else if(!selectedBook.querySelector(".book-read-pages") &&
+         newReadPagesParsed <= selectedBook.totalpages){
+            const readpages = document.createElement("p")
+            readpages.classList.add("book-read-pages")
+            readpages.innerText = newReadPagesParsed
+
+            const pages = selectedBook.querySelector(".book-pages")
+            const totalPages = pages.children[0]
+
+            pages.insertBefore(readpages , totalPages)
+            bookObj.readPages = newReadPagesParsed 
+    }
+
 }
+
+
+
 if(newTotalPages.value ){
 selectedBook.querySelector(".book-total-pages").innerText = newTotalPages.value
-bookObj.totalPages = newTotalPages.value
+bookObj.totalPages = parseInt(newTotalPages.value)
 }
 if(newColor.value ){
   selectedBook.style.backgroundColor = newColor.value
@@ -224,7 +262,7 @@ bookObj.color = newColor.value
   
 store.allBooks = JSON.stringify(allBooks)
 
-// update visual
+
 }
 
 
@@ -251,5 +289,44 @@ function deleteBook(){
 
   }
   deleteBookDialog.close()
+
+}
+
+// Info
+
+
+
+function infoupdate() {
+  const allBooks = JSON.parse(store.allBooks)
+  let totalBooks = allBooks.length
+  let totalPages = 0
+  let readPages = 0
+  let finishedBooks = 0
+  let pendingBooks = 0
+  let untouchedBooks = 0
+
+
+  allBooks.forEach(book => {
+    totalPages += book.totalPages
+    readPages += book.readPages || 0
+
+    if(book.totalPages === book.readPages || 0 ){
+      finishedBooks++
+    }
+    else if(book.readPages === 0 ){
+      untouchedBooks++
+    }
+    else{
+      pendingBooks++
+    }
+
+  })
+  
+numberOfBooksDisplay.innerText = totalPages
+numberOfTotalPages.innerHTML = totalPages
+numberOfReadPages.innerText = readPages
+numberOfFinishedBooks.innerHTML = finishedBooks
+numberOfPendingBooks.innerHTML = pendingBooks
+numberOfUntouchedBooks.innerHTML = untouchedBooks
 
 }

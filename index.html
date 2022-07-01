@@ -24,9 +24,43 @@
 <div class="info-settings-holder"> 
 
 <div class="info">
-<p>Number of books : <span id="number-of-books"></span></p>
-<p>Number of read books : <span id="number-of-read-books"></span></p>
-<p>Number of read Pages : <span id="number-of-read-pages"></span></p>
+  <table>
+    <caption>You Info</caption>
+    <tr>
+      <th>Data</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>Number of Books</td>
+      <td><span id="number-of-books"></span></td>
+    </tr>
+    <tr>
+      <td>Number of Total Pages</td>
+      <td><span id="number-of-total-pages"></span></td>
+    </tr>
+    <tr>
+      <td>Number of Read Pages</td>
+      <td><span id="number-of-read-pages"></span></td>
+    </tr>
+    <tr>
+      <td>Number of Finished Books</td>
+      <td><span id="number-of-Finished-books"></span></td>
+    </tr>
+    <tr>
+      <td>Number of Pending Books</td>
+      <td><span id="number-of-pending-books"></span> </td>
+    </tr>
+    <tr>
+      <td>Number of Untouched Books</td>
+      <td><span id="number-of-untouched-books"></span></td>
+    </tr>
+  </table>
+
+
+
+
+
+
 </div>
 <div class="settings">
   <div class="input-holder">
@@ -83,14 +117,17 @@
 
     <div class="input-holder biguy">  
       <div class="input-holder pages-read-holder">
-        <input type="number" id="new-book-pages-read" min="0"  placeholder=" ">
+        <input type="number" id="new-book-pages-read" min="0"  pattern="\d*" placeholder=" ">
         <label for="new-book-pages-read">Read Pages</label>
+
       </div>
 
       <div class="input-holder cover-color-holder">
         <input type="color"  id="cover-color"  value="#0e74a0" placeholder=" ">
         <label for="cover-color">Cover</label>
       </div>
+      <span id="hint">*Hint: Leave Empty If Completed</span>
+
     </div>
 
     <button class="add-book" >Add-book</button>

@@ -96,12 +96,19 @@ clip-path: polygon(10px 0%, 100% 0%, 100% 100%, 0% 100%);
   position: relative;
 }
 .book > .book-pages > .book-total-pages:only-of-type::before {
-content: "Finished";
+content: "";
 display: block; position: absolute;
-background-color: rgb(27, 117, 0);
 right: 101%; top: 0; padding: 0 5px;
 border: 1px solid black;
+}
 
+.book > .book-pages > .book-total-pages.unread:only-of-type::before   {
+content:"incomplete";
+background-color: rgb(197, 25, 25);
+}
+.book > .book-pages > .book-total-pages.read:only-of-type::before   {
+  content:"Finished";
+  background-color: rgb(27, 133, 0);
 }
 
 
@@ -123,13 +130,14 @@ border-radius: 10px 0 0 10px;
 
 }
 dialog{
-  position: absolute;top: 0;left: 0;right: 0;bottom: 30%;
+  position: absolute;top: 0;left: 0;right: 0;bottom: 0;
   background-color: rgb(51, 51, 51);
   margin: auto;
   padding: 0 20px 20px 20px;
   font-family:"Akshar" ,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
   border-radius: 30px 30px 20px 20px;
 
+  height: max-content;
 
 }
 dialog::backdrop {
@@ -148,7 +156,7 @@ dialog::backdrop {
 .input-holder > label {
   position: absolute;cursor: text;
   left: 5px;
-  bottom: 0px;margin: auto auto;
+  bottom: -3px;margin: auto auto;
   color: rgb(158, 157, 157);
 }
 .input-holder > input {
@@ -161,8 +169,10 @@ dialog::backdrop {
   font-size: 26px;
   border: none;
 }
+input{box-sizing: border-box;}
 .border-bottom{
   height: 5px; 
+  margin: 0 auto;
   transition: all 250ms ease-in;
   transform: scaleX(0);
   transform-origin: center;
@@ -175,7 +185,12 @@ dialog::backdrop {
   background-color: rgb(43, 43, 43);
   color: white;
 } */
-
+#hint{
+position: absolute;
+top: 140%;
+color: white;
+font-size: 1.3rem;
+}
 
 .input-holder > input:focus + label ,
 .input-holder > input:not(:placeholder-shown) + label {
@@ -218,6 +233,7 @@ div.cover-color-holder {
 
 
 form#add-book-form  button {
+  margin-top: 10%;
   padding: 10px 20px;font-size: 26px;
   border-radius: 20px 5px;
   background-color: rgb(72, 223, 72);
@@ -273,8 +289,8 @@ form#add-book-form > button.close-dialog {
 
 }
       .settings { position: relative;
-
-        margin-top: 20px;
+        height: fit-content;
+        margin-top: auto;
         border: 5px solid black;
         border-radius: 10px;
         padding: 20px  0  0 10px   ;
@@ -385,7 +401,7 @@ form#add-book-form > button.close-dialog {
           grid-template-columns: 1fr 1fr;
         }
         .settings {
-          margin-top: 0;
+          margin:0 auto;
         }
         .settings > .biguy > .input-holder > label {
           font-size: 13px !important ;
@@ -441,6 +457,17 @@ background-color: #fff;
 
 
 color: black;
+}
+
+table{
+  position: relative;
+  border: 3px double black;
+  background-color: rgb(245, 137, 14);
+}
+td{
+  border: 3px double black;
+  background-color: #fff;
+  text-align: center;
 }
 
 
