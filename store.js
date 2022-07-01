@@ -7,7 +7,7 @@ if(!store.allBooks){
     {author: "Kentaro Miura",
   color: "#010033",
   id: 1,
-  readPages: null,
+  readPages: 0,
   title: "Berserk",
   totalPages: 364}])
   store.booksIds = "2"

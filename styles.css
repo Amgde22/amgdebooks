@@ -34,7 +34,7 @@ color: rgba(0, 0, 0, 0.863);
 }
 .rest-of-page{
   display: grid;
-  grid-template-columns: 1fr 200px;
+  grid-template-columns: 1fr 300px;
 }
 
 .books-container{
@@ -44,6 +44,7 @@ color: rgba(0, 0, 0, 0.863);
   grid-template-columns:  repeat(auto-fill,minmax(200px,1fr));
   row-gap: 20px;  column-gap: 25px;
   grid-auto-rows: minmax(200px , 250);
+
 }
 
 .book , .open-dialog-button-div{
@@ -58,7 +59,7 @@ min-height: 200px;
 height: 40vh;
 max-height: 250px;
   display: flex;flex-direction: column;
-  margin: auto;
+  margin: auto 0;
 position: relative;
 
 box-sizing: border-box;
@@ -280,6 +281,8 @@ form#add-book-form > button.close-dialog {
 .open-dialog-button-div:hover > .show-dialog  {opacity: 1; cursor: pointer;}
 
 .info-settings-holder{ 
+  display: flex;
+  flex-direction: column;align-items: center;
   padding: 10px; margin-bottom: 10px;
   background-color: var(--bgc-light);
   padding-left: 10px; 
@@ -290,8 +293,10 @@ form#add-book-form > button.close-dialog {
 }
       .settings { position: relative;
         height: fit-content;
-        margin-top: auto;
+        max-width: 200px;
+
         border: 5px solid black;
+        margin-top: 50px;
         border-radius: 10px;
         padding: 20px  0  0 10px   ;
         display: none;
@@ -397,8 +402,10 @@ form#add-book-form > button.close-dialog {
         .book{
           max-width: 200px;
         }
-        .info-settings-holder{ display: grid;
-          grid-template-columns: 1fr 1fr;
+        .info-settings-holder{ 
+          flex-direction: row;
+          
+
         }
         .settings {
           margin:0 auto;

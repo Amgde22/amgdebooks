@@ -24,8 +24,8 @@ const updateBookBtn = document.querySelector(".update-book-btn")
 
  // info
  const numberOfBooksDisplay = document.querySelector("#number-of-books")
- const numberOfReadPages = document.querySelector("#number-of-total-pages")
- const numberOfTotalPages = document.querySelector("#number-of-read-pages")
+ const numberOfTotalPages = document.querySelector("#number-of-total-pages")
+ const numberOfReadPages = document.querySelector("#number-of-read-pages")
  const numberOfFinishedBooks = document.querySelector("#number-of-Finished-books")
  const numberOfPendingBooks = document.querySelector("#number-of-pending-books")
  const numberOfUntouchedBooks = document.querySelector("#number-of-untouched-books")
@@ -210,6 +210,7 @@ function selectBook(e) {
 updateBookBtn.addEventListener("click" , updateBook)
 
 function updateBook(e){
+
   const allBooks = JSON.parse(store.allBooks)
   console.log(selectedBook.bookId);
   const bookObjIndex = allBooks.findIndex(bok => parseInt(bok.id) === parseInt(selectedBook.bookId))
@@ -227,25 +228,51 @@ bookObj.author = newAuthor.value
 
 // check if read pages is being updated
 const newReadPagesParsed = parseInt(newReadPages.value)
+const pages = selectedBook.querySelector(".book-pages")
+let existingTotalPages = selectedBook.querySelector(".book-total-pages")
+let existingReadPages = selectedBook.querySelector(".book-read-pages")
+
 if( newReadPages.value ){
     if(selectedBook.querySelector(".book-read-pages") &&
     newReadPagesParsed <= selectedBook.totalpages ){
           selectedBook.querySelector(".book-read-pages").innerText = newReadPagesParsed
-          bookObj.readPages = newReadPagesParsed 
-        }
+    if(newReadPagesParsed === 0 ){
+      existingReadPages.remove()
+      existingTotalPages.classList.remove("read")
+      existingTotalPages.classList.add("unread")
+    }
+    else if(newReadPagesParsed == selectedBook.totalpages){
+      existingReadPages.remove()
+      existingTotalPages.classList.remove("unread")
+      existingTotalPages.classList.add("read")
+    }
+    }
 
     else if(!selectedBook.querySelector(".book-read-pages") &&
-         newReadPagesParsed <= selectedBook.totalpages){
+         newReadPagesParsed <= selectedBook.totalpages ){
+          
+          if(newReadPagesParsed === 0 ){
+
+            existingTotalPages.classList.remove("read")
+            existingTotalPages.classList.add("unread")
+          }
+          else if(newReadPagesParsed == selectedBook.totalpages){
+
+            existingTotalPages.classList.remove("unread")
+            existingTotalPages.classList.add("read")
+          }
+          else{
             const readpages = document.createElement("p")
             readpages.classList.add("book-read-pages")
             readpages.innerText = newReadPagesParsed
 
-            const pages = selectedBook.querySelector(".book-pages")
             const totalPages = pages.children[0]
 
             pages.insertBefore(readpages , totalPages)
-            bookObj.readPages = newReadPagesParsed 
+          }
     }
+    
+    bookObj.readPages = newReadPagesParsed 
 
 }
 
@@ -289,7 +316,7 @@ function deleteBook(){
 
   }
   deleteBookDialog.close()
-
+  infoupdate()
 }
 
 // Info
@@ -310,10 +337,10 @@ function infoupdate() {
     totalPages += book.totalPages
     readPages += book.readPages || 0
 
-    if(book.totalPages === book.readPages || 0 ){
+    if(book.totalPages == book.readPages || 0 ){
       finishedBooks++
     }
-    else if(book.readPages === 0 ){
+    else if((book.readPages || 0) == 0 ){
       untouchedBooks++
     }
     else{
@@ -322,11 +349,13 @@ function infoupdate() {
 
   })
   
-numberOfBooksDisplay.innerText = totalPages
+numberOfBooksDisplay.innerText = totalBooks
 numberOfTotalPages.innerHTML = totalPages
-numberOfReadPages.innerText = readPages
+numberOfReadPages.innerHTML = readPages
 numberOfFinishedBooks.innerHTML = finishedBooks
 numberOfPendingBooks.innerHTML = pendingBooks
 numberOfUntouchedBooks.innerHTML = untouchedBooks
+
+// infoupdate()
 
 }
