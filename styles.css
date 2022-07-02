@@ -33,11 +33,12 @@ font-size: 2em; text-transform: capitalize; text-decoration: underline;border-bo
 color: rgba(0, 0, 0, 0.863);
 }
 .rest-of-page{
-  display: grid;
-  grid-template-columns: 1fr 300px;
+  display: flex;
+  align-items: flex-start;
 }
 
 .books-container{
+  flex: 2 1 auto;
   background-image:var(--bgc);
   padding:  20px 10px;
   display: grid;
@@ -395,7 +396,7 @@ form#add-book-form > button.close-dialog {
 
 
       @media (max-width:500px){
-        .rest-of-page{display: flex;flex-direction: column-reverse;}
+        .rest-of-page{display: flex;flex-direction: column-reverse; align-items: center;}
         nav{
           flex-direction: column;
         }
