@@ -403,10 +403,6 @@ form#add-book-form > button.close-dialog {
         .book{
           max-width: 200px;
         }
-     
-        .settings {
-          margin:0 auto;
-        }
         .settings > .biguy > .input-holder > label {
           font-size: 13px !important ;
           transform: scale(1.23) translate(2px , 5px);
