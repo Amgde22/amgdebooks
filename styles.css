@@ -403,11 +403,7 @@ form#add-book-form > button.close-dialog {
         .book{
           max-width: 200px;
         }
-        .info-settings-holder{ 
-          flex-direction: row;
-          
-
-        }
+     
         .settings {
           margin:0 auto;
         }
